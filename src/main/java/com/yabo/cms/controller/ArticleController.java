@@ -2,15 +2,13 @@ package com.yabo.cms.controller;
 
 import com.yabo.cms.config.handler.CacheHandler;
 import com.yabo.cms.entity.Article;
-import com.yabo.cms.entity.Response.R;
+import com.yabo.cms.entity.response.R;
 import com.yabo.cms.service.ArticleService;
 import jakarta.annotation.Resource;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/article")

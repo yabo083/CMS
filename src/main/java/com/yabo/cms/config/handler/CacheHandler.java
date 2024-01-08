@@ -19,11 +19,6 @@ public class CacheHandler {
      * @return
      */
     public void diyCacheCleaner(String cacheName) {
-        // first, print all cache(cache's structure is very deep and please ensure to delete clearly),and then delete all cache
-//         System.out.println(cacheManager.getCacheNames());
-//         cacheManager.getCacheNames().forEach(cacheNames -> cacheManager.getCache(cacheNames).clear());
-        // second, delete the specified cache
-
         if (Objects.nonNull(cacheManager.getCache(cacheName))) {
             cacheManager.getCache(cacheName).clear();
         }

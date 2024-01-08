@@ -1,4 +1,4 @@
-package com.yabo.cms.entity.Response;
+package com.yabo.cms.entity.response;
 
 import lombok.Data;
 

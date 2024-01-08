@@ -2,6 +2,7 @@ package com.yabo.cms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yabo.cms.entity.ArticleCategory;
+import com.yabo.cms.entity.dto.ArticleCategoryDto;
 
 
 /**
@@ -12,5 +13,8 @@ import com.yabo.cms.entity.ArticleCategory;
  */
 public interface ArticleCategoryService extends IService<ArticleCategory> {
 
+    boolean update(ArticleCategoryDto articleCategoryDto);
+
+    boolean delete(ArticleCategory articleCategory);
 }
 

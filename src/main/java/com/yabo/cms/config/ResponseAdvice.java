@@ -1,7 +1,7 @@
 package com.yabo.cms.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yabo.cms.entity.Response.R;
+import com.yabo.cms.entity.response.R;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;

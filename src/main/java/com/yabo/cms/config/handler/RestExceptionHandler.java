@@ -1,7 +1,7 @@
 package com.yabo.cms.config.handler;
 
-import com.yabo.cms.entity.Response.R;
-import com.yabo.cms.entity.Response.ReturnCode;
+import com.yabo.cms.entity.response.R;
+import com.yabo.cms.entity.response.ReturnCode;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;

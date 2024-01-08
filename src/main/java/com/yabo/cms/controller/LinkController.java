@@ -1,7 +1,7 @@
 package com.yabo.cms.controller;
 
 import com.yabo.cms.entity.Link;
-import com.yabo.cms.entity.Response.R;
+import com.yabo.cms.entity.response.R;
 import com.yabo.cms.service.LinkService;
 import jakarta.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
