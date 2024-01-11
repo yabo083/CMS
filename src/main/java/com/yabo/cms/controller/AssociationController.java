@@ -26,7 +26,7 @@ public class AssociationController {
         return associationService.associationList();
     }
 
-    @Cacheable(cacheNames = "allAvailableCategory", key = "'allAvailableCategory'")
+//    @Cacheable(cacheNames = "allAvailableCategory", key = "'allAvailableCategory'")
     @GetMapping("/allAvailableCategory")
     public Object allAvailableCategory() {
         return associationService.allAvailableCategory();
@@ -37,6 +37,13 @@ public class AssociationController {
         return associationService.allAvailableArticle(categoryId);
     }
 
+    @Cacheable(cacheNames = "allConnectedArticle", key = "'allConnectedArticle' + #categoryId")
+    @GetMapping("/allConnectedArticle/{categoryId}")
+    public Object allConnectedArticle(@PathVariable String categoryId) {
+        return associationService.allConnectedArticle(categoryId);
+    }
+
+
     @Transactional
     @PostMapping("/add")
     public Object add(@RequestBody AssociationAddDto associationAddDto) {
@@ -45,6 +52,8 @@ public class AssociationController {
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("associationList");
+            cacheHandler.diyCacheCleaner("allConnectedArticle");
+            cacheHandler.diyCacheCleaner("allAvailableCategory");
             return R.success("添加成功！");
         } else {
             return R.error(500, "添加失败！");
@@ -60,6 +69,8 @@ public class AssociationController {
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("associationList");
+            cacheHandler.diyCacheCleaner("allConnectedArticle");
+            cacheHandler.diyCacheCleaner("allAvailableCategory");
             return R.success("修改成功！");
         } else {
             return R.error(500, "修改失败！");
@@ -75,6 +86,8 @@ public class AssociationController {
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("associationList");
+            cacheHandler.diyCacheCleaner("allConnectedArticle");
+            cacheHandler.diyCacheCleaner("allAvailableCategory");
             return R.success("删除成功！");
         } else {
             return R.error(500, "删除失败！");

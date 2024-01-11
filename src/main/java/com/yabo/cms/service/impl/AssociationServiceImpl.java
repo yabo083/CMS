@@ -1,7 +1,6 @@
 package com.yabo.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yabo.cms.entity.Article;
 import com.yabo.cms.entity.Association;
@@ -160,7 +159,26 @@ public class AssociationServiceImpl extends ServiceImpl<AssociationMapper, Assoc
 
         // Save the new associations
         return ((AssociationService) AopContext.currentProxy()).saveBatch(newAssociations);
-}
+    }
+
+    @Override
+    public Object allConnectedArticle(String categoryId) {
+        // first, get all the associations by categoryId
+        LambdaQueryWrapper<Association> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Association::getCategoryId, categoryId);
+        List<Association> associationList = associationMapper.selectList(lambdaQueryWrapper);
+        // second, get all the articles by these associations' articleId
+        List<Article> articleList = associationList.stream()
+            .map(association -> articleMapper.selectById(association.getArticleId())).toList();
+        // finally, convert the articleList to articleContentDto
+        return articleList.stream().map(article -> ArticleContentDto.builder()
+                .articleId(article.getArticleId())
+                .title(article.getTitle())
+                .content(article.getContent())
+                .author(article.getAuthor())
+                .build())
+            .collect(Collectors.toList());
+    }
 
 }
 
