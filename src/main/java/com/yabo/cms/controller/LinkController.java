@@ -14,7 +14,7 @@ public class LinkController {
     @Resource
     private LinkService linkService;
 
-    @GetMapping
+    @GetMapping("/list")
     public Object getLink() {
         return linkService.list();
     }

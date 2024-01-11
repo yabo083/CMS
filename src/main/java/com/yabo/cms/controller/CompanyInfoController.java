@@ -18,7 +18,7 @@ public class CompanyInfoController {
      * 获取公司信息
      * @return 现有的公司信息
      */
-    @GetMapping
+    @GetMapping("/list")
     public Object getCompanyInfo() {
         return companyInfoService.list();
     }

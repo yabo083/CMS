@@ -1,18 +1,18 @@
 package com.yabo.cms.entity.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleCategoryDto {
+@Builder
+public class CategoryDto {
 
-    private Integer articleId;
+    private Integer categoryId;
 
-    private Integer oldCategoryId;
-
-    private Integer newCategoryId;
+    private String categoryName;
 
 }

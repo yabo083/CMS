@@ -20,8 +20,6 @@ public class ArticleController {
     @Resource
     private CacheHandler cacheHandler;
 
-    @Resource
-    private CacheManager cacheManager;
 
     /**
      * 获取完整内容的文章列表, 每页10行
