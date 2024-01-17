@@ -27,9 +27,9 @@ public class ArticleController {
      * @return 现有的文章列表
      */
     @Cacheable(cacheNames = "articleList", key = "'articleList'.concat(#pageNum).concat('-').concat(#pageSize)")
-    @GetMapping("/list")
-    public Object getArticleList(@RequestParam(defaultValue = "1") int pageNum,
-        @RequestParam(defaultValue = "10") int pageSize) {
+    @GetMapping("/list/{pageNum}/{pageSize}")
+    public Object getArticleList(@PathVariable int pageNum,
+        @PathVariable int pageSize) {
         // 实现分页查询，默认每页10行，且从第1页开始
         return articleService.getArticleList(pageNum, pageSize);
     }
@@ -41,6 +41,7 @@ public class ArticleController {
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("articleList");
+            cacheHandler.diyCacheCleaner("associationList");
             return R.success("添加成功！");
         } else {
             return R.error(500, "添加失败！");
@@ -54,6 +55,7 @@ public class ArticleController {
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("articleList");
+            cacheHandler.diyCacheCleaner("associationList");
             return R.success("修改成功！");
         } else {
             return R.error(500, "修改失败！");
@@ -68,6 +70,7 @@ public class ArticleController {
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("articleList");
+            cacheHandler.diyCacheCleaner("associationList");
             return R.success("删除成功！");
         } else {
             return R.error(500, "删除失败！");

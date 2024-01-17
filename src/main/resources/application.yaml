@@ -22,6 +22,8 @@ mybatis-plus:
     # 逻辑删除
   global-config:
     db-config:
+      # 主键类型
+      id-type: auto
       # 逻辑删除字段名
       logic-delete-field: isDeleted
       # 删除前

@@ -1,13 +1,15 @@
 package com.yabo.cms.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yabo.cms.entity.Article;
+import com.yabo.cms.entity.dto.ArticlePageDto;
 import com.yabo.cms.mapper.ArticleMapper;
 import com.yabo.cms.service.ArticleService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * (Article)表服务实现类
@@ -23,12 +25,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public Object getArticleList(int pageNum, int pageSize) {
-        System.out.println("pageNum = " + pageNum);
-        System.out.println("pageSize = " + pageSize);
+        // get current page data
         Page<Article> page = new Page<>(pageNum, pageSize);
         page(page);
-        return page.getRecords();
+        List<Article> articleList = page.getRecords();
+        // get total count from page object
+        long total = page.getTotal();
 
+        // Create ArticlePageDto object and set articleList and total
+
+        // Return the ArticlePageDto object
+        return ArticlePageDto.builder()
+            .articleList(articleList)
+            .total((int) total)
+            .build();
     }
+
 }
 

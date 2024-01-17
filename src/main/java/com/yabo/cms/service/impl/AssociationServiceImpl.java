@@ -18,6 +18,9 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -64,18 +67,38 @@ public class AssociationServiceImpl extends ServiceImpl<AssociationMapper, Assoc
         // first, by list(), get all the associations
         List<Association> association = list();
 
+        // Get all articles and categories
+        List<Article> allArticles = articleService.list();
+        List<Category> allCategories = categoryService.list();
+
+        // Convert to map for quick lookup
+        Map<Integer, Article> articleMap = allArticles.stream()
+            .collect(Collectors.toMap(Article::getArticleId, Function.identity()));
+        Map<Integer, Category> categoryMap = allCategories.stream()
+            .collect(Collectors.toMap(Category::getCategoryId, Function.identity()));
+
         // second, by stream(), map(), collect() and builder(), get the associationListDto
-        return association.stream().map(association1 -> AssociationListDto.builder()
-                .id(association1.getId())
-                .articleDto(ArticleDto.builder()
-                    .articleId(association1.getArticleId())
-                    .title(articleMapper.selectById(association1.getArticleId()).getTitle())
-                    .build())
-                .categoryDto(CategoryDto.builder()
-                    .categoryId(association1.getCategoryId())
-                    .categoryName(categoryMapper.selectById(association1.getCategoryId()).getCategoryName())
-                    .build())
-                .build())
+        return association.stream().map(association1 -> {
+                Article article = articleMap.get(association1.getArticleId());
+                Category category = categoryMap.get(association1.getCategoryId());
+                // Check if the article or category has been logically deleted
+                if (article == null || category == null) {
+                    return null;
+                }
+                return AssociationListDto.builder()
+                    .id(association1.getId())
+                    .articleDto(ArticleDto.builder()
+                        .articleId(association1.getArticleId())
+                        .title(article.getTitle())
+                        .build())
+                    .categoryDto(CategoryDto.builder()
+                        .categoryId(association1.getCategoryId())
+                        .categoryName(category.getCategoryName())
+                        .build())
+                    .build();
+            })
+            // Filter out null values
+            .filter(Objects::nonNull)
             .collect(Collectors.toList());
     }
 
