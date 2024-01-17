@@ -12,5 +12,9 @@ import com.yabo.cms.entity.Association;
  */
 public interface AssociationMapper extends BaseMapper<Association> {
 
+
+    int deleteByArticleId(Integer idInt);
+
+    int deleteByCategoryId(Integer idInt);
 }
 

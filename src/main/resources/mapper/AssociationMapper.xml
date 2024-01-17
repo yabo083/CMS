@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yabo.cms.mapper.AssociationMapper">
+
+    <delete id="deleteByArticleId" parameterType="java.lang.Integer">
+        delete from association
+        where article_id = #{idInt,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByCategoryId">
+        delete from association
+        where category_id = #{idInt,jdbcType=INTEGER}
+    </delete>
+</mapper>

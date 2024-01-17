@@ -12,5 +12,6 @@ import com.yabo.cms.entity.Category;
  */
 public interface CategoryService extends IService<Category> {
 
+    boolean deleteById(Integer idInt);
 }
 

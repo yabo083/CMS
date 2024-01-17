@@ -56,7 +56,7 @@ public class CategoryController {
     public Object delete(@PathVariable String id) {
         Integer idInt = Integer.valueOf(id);
 //        return categoryService.removeById(idInt) ? R.success("删除成功！") : R.error(500, "删除失败！");
-        boolean result = categoryService.removeById(idInt);
+        boolean result = categoryService.deleteById(idInt);
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("associationList");

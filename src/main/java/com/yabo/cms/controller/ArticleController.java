@@ -66,7 +66,7 @@ public class ArticleController {
     @DeleteMapping("/delete/{id}")
     public Object deleteArticle(@PathVariable String id) {
         Integer idInt = Integer.valueOf(id);
-        boolean result = articleService.removeById(idInt);
+        boolean result = articleService.deleteById(idInt);
         if (result) {
             // 清除缓存
             cacheHandler.diyCacheCleaner("articleList");

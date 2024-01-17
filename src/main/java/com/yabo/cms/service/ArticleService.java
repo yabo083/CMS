@@ -13,5 +13,7 @@ import com.yabo.cms.entity.Article;
 public interface ArticleService extends IService<Article> {
 
     Object getArticleList(int pageNum, int pageSize);
+
+    boolean deleteById(Integer idInt);
 }
 

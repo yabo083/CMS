@@ -24,5 +24,7 @@ public interface AssociationService extends IService<Association> {
     boolean save(AssociationAddDto associationAddDto);
 
     Object allConnectedArticle(String categoryId);
+
+
 }
 

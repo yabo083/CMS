@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yabo.cms.entity.Article;
 import com.yabo.cms.entity.dto.ArticlePageDto;
 import com.yabo.cms.mapper.ArticleMapper;
+import com.yabo.cms.mapper.AssociationMapper;
 import com.yabo.cms.service.ArticleService;
+import com.yabo.cms.service.AssociationService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Resource
     private ArticleMapper articleMapper;
 
+    @Resource
+    private AssociationMapper associationMapper;
+
     @Override
     public Object getArticleList(int pageNum, int pageSize) {
         // get current page data
@@ -39,6 +44,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             .articleList(articleList)
             .total((int) total)
             .build();
+    }
+
+    @Override
+    public boolean deleteById(Integer idInt) {
+        // delete article by id and association by article id
+        int count = articleMapper.deleteById(idInt);
+        int count1 = associationMapper.deleteByArticleId(idInt);
+        return count > 0 && count1 > 0;
     }
 
 }
